@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+coverage/
+.angular/
+
+# Package manager
+package-lock.json
+
+# Generated assets
+*.log
