@@ -1,9 +1,10 @@
 # LATAM User Management
 
+![CI](https://github.com/RangerSheff/latam-user-management/actions/workflows/ci.yaml/badge.svg)
 ![Angular](https://img.shields.io/badge/Angular-21-red)
 ![Vitest](https://img.shields.io/badge/Vitest-Testing-green)
 ![Coverage](https://img.shields.io/badge/Coverage-98%25-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Aplicación Angular moderna para gestión y visualización de usuarios, construida con arquitectura escalable, separación de responsabilidades y quality gates automatizados.
 
@@ -238,13 +239,19 @@ build validation
 
 # Decisiones técnicas
 
-Se priorizó una arquitectura escalable y testeable.
+Se priorizó una arquitectura moderna, escalable y altamente testeable utilizando capacidades recientes de Angular 21.
 
-Los stores y facades utilizan constructor injection para facilitar unit testing desacoplado del runtime completo de Angular.
+La aplicación utiliza Angular Signals para manejo reactivo de estado, combinados con patrones Store y Facade para separar lógica de negocio, estado y presentación.
 
-Los interceptors centralizan configuración HTTP, permitiendo extender fácilmente autenticación, headers, logging y manejo de errores.
+La inyección de dependencias utiliza tanto `inject()` como constructor injection según el contexto, priorizando compatibilidad con Angular moderno, tree-shaking y facilidad de testing desacoplado.
 
-La arquitectura feature-first permite escalar el proyecto agregando nuevos dominios sin afectar módulos existentes.
+Los stores, facades y servicios fueron diseñados para permitir unit testing aislado utilizando Vitest sin depender del runtime completo de Angular.
+
+Los interceptors centralizan configuración HTTP, permitiendo extender fácilmente autenticación, headers, logging y manejo de errores globales.
+
+La arquitectura feature-first permite escalar el proyecto agregando nuevos dominios funcionales sin afectar módulos existentes, favoreciendo mantenibilidad y separación de responsabilidades.
+
+El proyecto incorpora quality gates automatizados mediante ESLint, Prettier, Husky, lint-staged, Vitest y coverage thresholds para garantizar consistencia y calidad de código.
 
 ---
 
