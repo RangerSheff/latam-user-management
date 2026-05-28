@@ -1,59 +1,271 @@
-# LatamUserManagement
+# LATAM User Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+![Angular](https://img.shields.io/badge/Angular-21-red)
+![Vitest](https://img.shields.io/badge/Vitest-Testing-green)
+![Coverage](https://img.shields.io/badge/Coverage-98%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## Development server
+Aplicación Angular moderna para gestión y visualización de usuarios, construida con arquitectura escalable, separación de responsabilidades y quality gates automatizados.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+# Stack
+
+- Angular 21
+- TypeScript
+- Standalone Components
+- Angular Signals
+- Tailwind CSS
+- Angular Material
+- Vitest
+- ESLint
+- Prettier
+- Husky
+- lint-staged
+- GitHub Actions
+
+---
+
+# Arquitectura
+
+El proyecto utiliza arquitectura **feature-first**:
+
+```txt
+src/app
+├── core
+│   ├── config
+│   ├── interceptors
+│   └── logger
+├── features
+│   └── users
+│       ├── components
+│       ├── facades
+│       ├── mappers
+│       ├── models
+│       ├── pages
+│       ├── services
+│       └── store
+├── layouts
+└── shared
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+# Patrones utilizados
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Facade Pattern
+- Store Pattern
+- DTO Pattern
+- Mapper Pattern
+- HTTP Interceptors
+- Centralized Logger
+- Lazy Loading
+- OnPush Change Detection
+- Reactive State with Signals
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+# Funcionalidades
 
-```bash
-ng generate --help
-```
+- Listado de usuarios
+- Búsqueda reactiva con debounce
+- Filtro por rol
+- Filtro por estado
+- Skeleton loading
+- Empty state
+- Manejo centralizado de errores HTTP
+- UI responsive
 
-## Building
+---
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+# Scripts
 
 ```bash
-ng e2e
+npm start
+npm run build
+npm run lint
+npm run format
+npm run format:check
+npm run test:run
+npm run test:coverage
+npm run validate
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# Quality Gates
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+El proyecto valida automáticamente:
+
+- Formato con Prettier
+- Reglas de ESLint
+- Tests unitarios con Vitest
+- Coverage mínimo
+- Build productivo
+
+---
+
+# Testing
+
+La estrategia de testing prioriza lógica de negocio, estado, mappers, servicios y contratos de componentes.
+
+```txt
+Mapper tests
+Store tests
+Facade tests
+Service tests
+Logger tests
+Config tests
+Component smoke tests
+```
+
+---
+
+# CI/CD
+
+GitHub Actions ejecuta en cada push o pull request:
+
+```txt
+npm ci
+npm run format:check
+npm run lint
+npm run test:coverage
+npm run build
+```
+
+---
+
+# Ejecutar proyecto
+
+```bash
+npm install
+npm start
+```
+
+La aplicación quedará disponible en:
+
+```txt
+http://localhost:4200
+```
+
+---
+
+# Coverage
+
+El proyecto utiliza **Vitest + V8 Coverage** para medir cobertura de pruebas unitarias.
+
+## Coverage visual
+
+Métricas actuales del proyecto:
+
+| Métrica    | Coverage |
+| ---------- | -------: |
+| Statements |   98.79% |
+| Branches   |   80.76% |
+| Functions  |     100% |
+| Lines      |     100% |
+
+Thresholds mínimos configurados:
+
+```txt
+Statements: 90%
+Branches: 80%
+Functions: 90%
+Lines: 90%
+```
+
+Generar reporte:
+
+```bash
+npm run test:coverage
+```
+
+Abrir reporte HTML:
+
+```txt
+coverage/index.html
+```
+
+## Screenshot del reporte
+
+El reporte HTML generado por Vitest se puede visualizar desde:
+
+```txt
+coverage/index.html
+```
+
+Screenshot referencial del reporte:
+
+![Coverage Report](docs/images/coverage-report.png)
+
+---
+
+# Convenciones
+
+## Commits
+
+Se recomienda Conventional Commits:
+
+```txt
+feat:
+fix:
+refactor:
+test:
+docs:
+chore:
+```
+
+Ejemplo:
+
+```txt
+feat(users): add users filtering
+```
+
+---
+
+# Validaciones automáticas
+
+Husky ejecuta antes de cada commit:
+
+```txt
+format check
+eslint
+tests
+build validation
+```
+
+---
+
+# Decisiones técnicas
+
+Se priorizó una arquitectura escalable y testeable.
+
+Los stores y facades utilizan constructor injection para facilitar unit testing desacoplado del runtime completo de Angular.
+
+Los interceptors centralizan configuración HTTP, permitiendo extender fácilmente autenticación, headers, logging y manejo de errores.
+
+La arquitectura feature-first permite escalar el proyecto agregando nuevos dominios sin afectar módulos existentes.
+
+---
+
+# Roadmap
+
+Posibles mejoras futuras:
+
+- E2E testing con Playwright
+- Storybook
+- Dark mode
+- Internacionalización (i18n)
+- Pagination server-side
+- Docker support
+- Authentication module
+- Role permissions
+- CI deployment pipeline
+
+---
+
+# Autor
+
+Carlos Javier López Aguayo
+
+Senior Full Stack Developer
