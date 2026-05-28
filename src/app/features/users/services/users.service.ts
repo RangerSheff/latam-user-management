@@ -26,7 +26,15 @@ export class UsersService {
   getUsers(): Observable<UsersResponseDto> {
     return this.http.get<UsersResponseDto>('/users').pipe(
       tap((response) => {
-        this.logger.log('Users fetched successfully', response);
+        this.logger.info('Users fetched successfully', {
+          feature: 'users',
+          action: 'getUsers',
+          payload: {
+            total: response.total,
+            limit: response.limit,
+            skip: response.skip,
+          },
+        });
       }),
     );
   }
