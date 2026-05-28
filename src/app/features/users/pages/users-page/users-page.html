@@ -1,0 +1,68 @@
+<div class="p-6">
+  <h1 class="mb-6 text-3xl font-bold text-red-500">Users Management</h1>
+
+  <!-- SEARCH -->
+  <div class="mb-6">
+    <input
+      type="text"
+      placeholder="Buscar usuarios..."
+      class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 outline-none transition focus:border-blue-400"
+      [value]="searchTerm()"
+      (input)="onSearch($event)"
+    />
+  </div>
+
+  <!-- FILTERS -->
+  <div class="mb-6 grid gap-4 md:grid-cols-3">
+    <select
+      class="rounded-xl border border-gray-200 bg-white px-4 py-3"
+      (change)="onRoleChange($event)"
+    >
+      <option value="all">Todos los roles</option>
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+      <option value="guest">Guest</option>
+    </select>
+
+    <select
+      class="rounded-xl border border-gray-200 bg-white px-4 py-3"
+      (change)="onStatusChange($event)"
+    >
+      <option value="all">Todos los estados</option>
+      <option value="active">Activos</option>
+      <option value="inactive">Inactivos</option>
+    </select>
+
+    <div class="flex items-center rounded-xl bg-white px-4 py-3 text-sm text-gray-500 shadow-sm">
+      Usuarios encontrados:
+
+      <span class="ml-2 font-bold text-gray-900"> {{ filteredUsers().length }} </span>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  @if (loading()) {
+  <app-users-skeleton />
+  }
+
+  <!-- ERROR -->
+  @if (error()) {
+  <div class="rounded-2xl bg-red-100 p-4 text-red-600">{{ error() }}</div>
+  }
+
+  <!-- USERS -->
+  @if (hasUsers()) {
+  <app-users-list [users]="filteredUsers()" />
+  }
+
+  <!-- EMPTY STATE -->
+  @if (!loading() && filteredUsers().length === 0) {
+  <div class="rounded-2xl bg-white p-10 text-center shadow-sm">
+    <div class="text-5xl">🔍</div>
+
+    <h3 class="mt-4 text-xl font-bold text-gray-800">No se encontraron usuarios</h3>
+
+    <p class="mt-2 text-gray-500">Intenta cambiar los filtros o la búsqueda.</p>
+  </div>
+  }
+</div>
