@@ -12,6 +12,10 @@ describe('UsersService', () => {
   };
 
   const loggerMock = {
+    debug: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
     log: vi.fn(),
   };
 
@@ -55,6 +59,14 @@ describe('UsersService', () => {
   it('should log successful response', () => {
     service.getUsers().subscribe();
 
-    expect(loggerMock.log).toHaveBeenCalledWith('Users fetched successfully', mockResponse);
+    expect(loggerMock.info).toHaveBeenCalledWith('Users fetched successfully', {
+      feature: 'users',
+      action: 'getUsers',
+      payload: {
+        total: mockResponse.total,
+        limit: mockResponse.limit,
+        skip: mockResponse.skip,
+      },
+    });
   });
 });

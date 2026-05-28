@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UsersList } from '../../components/users-list/users-list';
 import { UsersFacade } from '../../facades/users.facade';
-import { UserRoleFilter, UserStatusFilter } from '../../store/users.store';
 import { UsersSkeleton } from '../../components/users-skeleton/users-skeleton';
 
 @Component({
@@ -31,6 +29,14 @@ export class UsersPage implements OnInit {
   readonly selectedRole = this.usersFacade.selectedRole;
   readonly selectedStatus = this.usersFacade.selectedStatus;
 
+  readonly activeUsersCount = computed(
+    () => this.filteredUsers().filter((user) => user.active).length,
+  );
+
+  readonly inactiveUsersCount = computed(
+    () => this.filteredUsers().filter((user) => !user.active).length,
+  );
+
   ngOnInit(): void {
     this.usersFacade.loadUsers();
   }
@@ -46,14 +52,14 @@ export class UsersPage implements OnInit {
   }
 
   onRoleChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value as UserRoleFilter;
+    const value = (event.target as HTMLSelectElement).value;
 
-    this.usersFacade.setRole(value);
+    this.usersFacade.setRole(value as never);
   }
 
   onStatusChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value as UserStatusFilter;
+    const value = (event.target as HTMLSelectElement).value;
 
-    this.usersFacade.setStatus(value);
+    this.usersFacade.setStatus(value as never);
   }
 }

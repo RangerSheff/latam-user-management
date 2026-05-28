@@ -1,22 +1,63 @@
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
+type LogLevel = 'debug' | 'info' | 'warn' | 'error';
+
+interface LogContext {
+  feature?: string;
+  action?: string;
+  correlationId?: string;
+  payload?: unknown;
+  error?: unknown;
+}
+
+interface LogEntry extends LogContext {
+  level: LogLevel;
+  message: string;
+  timestamp: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoggerService {
-  log(message: string, data?: unknown): void {
-    if (!environment.production) {
-      console.log(`[LOG]: ${message}`, data ?? '');
+  debug(message: string, context?: LogContext): void {
+    this.write('debug', message, context);
+  }
+
+  info(message: string, context?: LogContext): void {
+    this.write('info', message, context);
+  }
+
+  warn(message: string, context?: LogContext): void {
+    this.write('warn', message, context);
+  }
+
+  error(message: string, context?: LogContext): void {
+    this.write('error', message, context);
+  }
+
+  log(message: string, payload?: unknown): void {
+    this.info(message, { payload });
+  }
+
+  private write(level: LogLevel, message: string, context: LogContext = {}): void {
+    const entry: LogEntry = {
+      level,
+      message,
+      timestamp: new Date().toISOString(),
+      ...context,
+    };
+
+    if (level === 'error') {
+      console.error(entry);
+      return;
     }
-  }
 
-  error(message: string, error?: unknown): void {
-    console.error(`[ERROR]: ${message}`, error ?? '');
-  }
+    if (level === 'warn') {
+      console.warn(entry);
+      return;
+    }
 
-  warn(message: string, data?: unknown): void {
-    console.warn(`[WARN]: ${message}`, data ?? '');
+    console.log(entry);
   }
 }
